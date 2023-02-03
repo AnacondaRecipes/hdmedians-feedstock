@@ -10,33 +10,46 @@ source:
   sha256: b47aecb16771e1ba0736557255d80ae0240b09156bff434321de559b359ac2d6
 
 build:
-  number: 1
-  skip: true  # [win]
+  number: 2
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv '
 
 requirements:
   build:
     - {{ compiler('c') }}
   host:
-    - cython >=0.23
-    - numpy
+    - cython
+    - numpy {{ numpy }}
     - pip
     - python
-    - nose
+    - setuptools
+    - wheel
   run:
-    - cython >=0.23
-    - {{ pin_compatible('numpy') }}
     - python
+    - {{ pin_compatible('numpy') }}
 test:
   imports:
     - hdmedians
+  requires:
+    - pip
+    - nose >=1.0
+  source_files:
+    - hdmedians/tests
+  commands:
+    # the pypi package is misconfigured and lists cython and nose as run dependencies.
+    - pip check || true  # [not win]
+    - pip check || cmd /K "exit /b 0"  # [win]
+    - nosetests hdmedians/tests
 
 about:
-  home: http://github.com/daleroberts/hdmedians
+  home: https://github.com/daleroberts/hdmedians
   license: Apache-2.0
   license_family: Apache
   license_file: {{ environ["RECIPE_DIR"] }}/LICENSE
   summary: High-dimensional medians
+  description: |
+    High-dimensional medians (medoid, geometric median, etc.). Fast implementations in Python.
+  dev_url: https://github.com/daleroberts/hdmedians
+  doc_url: https://github.com/daleroberts/hdmedians
 
 extra:
   recipe-maintainers:
