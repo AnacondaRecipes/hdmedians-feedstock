@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: b47aecb16771e1ba0736557255d80ae0240b09156bff434321de559b359ac2d6
+  patches:
+    - setup_reqs.patch
 
 build:
   number: 2
@@ -16,6 +18,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - patch
   host:
     - cython
     - numpy {{ numpy }}
@@ -35,9 +38,8 @@ test:
   source_files:
     - hdmedians/tests
   commands:
-    # the pypi package is misconfigured and lists cython and nose as run dependencies.
-    - pip check || true  # [not win]
-    - pip check || cmd /K "exit /b 0"  # [win]
+    - pip check
+    - pip check
     - nosetests hdmedians/tests
 
 about:
