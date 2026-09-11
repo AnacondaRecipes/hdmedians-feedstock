@@ -10,6 +10,7 @@ source:
   sha256: b47aecb16771e1ba0736557255d80ae0240b09156bff434321de559b359ac2d6
   patches:
     - setup_reqs.patch
+    - fix_nose_py312.patch
 
 build:
   number: 3
@@ -34,12 +35,12 @@ test:
     - hdmedians
   requires:
     - pip
-    - nose >=1.0
+    - pytest
   source_files:
     - hdmedians/tests
   commands:
     - pip check
-    - nosetests hdmedians/tests
+    - pytest hdmedians/tests
 
 about:
   home: https://github.com/daleroberts/hdmedians

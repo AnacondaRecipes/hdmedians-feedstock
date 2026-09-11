@@ -1,0 +1,44 @@
+diff --git a/hdmedians/tests/test_geomedian.py b/hdmedians/tests/test_geomedian.py
+index 0bc37e9..4224922 100644
+--- a/hdmedians/tests/test_geomedian.py
++++ b/hdmedians/tests/test_geomedian.py
+@@ -6,7 +6,16 @@ import numpy as np
+ import hdmedians as hd
+ 
+ from numpy.testing import assert_equal, assert_array_almost_equal
+-from nose.tools import assert_true, assert_raises
++import pytest
++
++
++def assert_true(expr):
++    assert expr
++
++
++def assert_raises(exc, func, *args, **kwargs):
++    with pytest.raises(exc):
++        func(*args, **kwargs)
+ 
+ # shape (6, 25)
+ DATA1 = np.array([[693, 990, 1281, 2101, 3524, 2577],
+diff --git a/hdmedians/tests/test_medoid.py b/hdmedians/tests/test_medoid.py
+index c5e0a7f..6eb344d 100644
+--- a/hdmedians/tests/test_medoid.py
++++ b/hdmedians/tests/test_medoid.py
+@@ -6,7 +6,16 @@ import numpy as np
+ import hdmedians as hd
+ 
+ from numpy.testing import assert_equal, assert_array_almost_equal
+-from nose.tools import assert_true, assert_raises
++import pytest
++
++
++def assert_true(expr):
++    assert expr
++
++
++def assert_raises(exc, func, *args, **kwargs):
++    with pytest.raises(exc):
++        func(*args, **kwargs)
+ 
+ # shape (6, 25)
+ DATA1 = np.array([[693, 990, 1281, 2101, 3524, 2577],
