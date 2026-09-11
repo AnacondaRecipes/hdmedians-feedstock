@@ -18,8 +18,8 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
-    - patch     # [not win]
   host:
     - cython
     - numpy {{ numpy }}
